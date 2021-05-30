@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mapa Nacho</title>
+<script src="js/leaflet.js"></script>
+<link rel="stylesheet" href="css/leaflet.css">
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        }
+    html, body, #map {
+        height: 100%;
+        width: 100%;
+        }
+        #title {
+                position: fixed;
+                top: 10px;
+                left: 70px;
+                margin-top: 0;
+                padding: 10px 15px;
+                background-color: rgba(255, 255, 255, 0.6);
+                border: 1px solid grey;
+                border-radius: 3px;
+                z-index: 500;
+            }
+        #description {
+                position: fixed;
+                bottom: 20px;
+                left: 10px;
+                width: 280px;
+                padding: 0px 15px;
+                background-color: rgba(255, 255, 255, 0.7);
+                border: 1px solid grey;
+                border-radius: 3px;
+                z-index: 500;
+            }
+        </style>
+</style>     
+</head>
+<body>
+    <div id="map"></div>
+    <h1 id="title">Estaciones de trenes en Zaragoza</h1>
+        
+        <div id="description">
+            <h2>Información de este mapa</h2>
+            El mapa muestra las estaciones de tren que hay en la ciudad de Zaragoza.</p>
+            <p>-Estación Delicias
+               
+            <p>-Estación del Portillo
+                
+            <p>-Estación de Goya
+               
+            <p>-Estación de Miraflores
+                
+            <p>En esta página pueden comprarse billetes de tren 
+            <a href="https://www.renfe.com/es/es" 
+                target="_blank">Página oficial de Renfe</a>. 
+                <img src="https://j.gifs.com/k5GQRE.gif" alt="Anuncio Renfe" width="280">
+            
+                <p>Mapa creado por Nacho Quílez</p>
+        </div>    
+
+    <script>
+        var Relieve= L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            }),
+            Callejero= L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', {
+	        maxZoom: 19,
+	        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+        var map = L.map("map", {center: [41.643827, -0.891224], zoom: 14, layers:[Relieve,Callejero]});
+        var baseMaps = {
+    
+        "Relieve": Relieve,
+        "Callejero": Callejero,
+};
+
+L.control.layers(baseMaps).addTo(map);
+        
+
+        let line = L.polyline(
+        [[41.633348, -0.868082], [41.643827, -0.891224], [41.652707, -0.895904], [41.657959, -0.910557], ],
+        {color: "red", weight: 3}
+        ).addTo(map)
+        ;
+        let Delicias = L.marker([41.657959, -0.910557]).addTo(map);
+        let Portillo = L.marker([41.652707, -0.895904]).addTo(map);
+        let Goya = L.marker([41.643827, -0.891224]).addTo(map);
+        let Miraflores = L.marker([41.633348, -0.868082]).addTo(map);
+        Goya.bindPopup(
+        "<b> Estación de Goya </b>"
+        );
+        Portillo.bindPopup(
+        "<b> Estación de Portillo</b>"
+        );
+        Delicias.bindPopup(
+        "<b> Estación de Delicias </b>"
+        );
+        Miraflores.bindPopup(
+        "<b> Estación de Miraflores </b>"
+        );
+        
+    </script>
+</body>
+</html>
